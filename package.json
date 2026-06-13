@@ -1,0 +1,77 @@
+{
+  "name": "@joinremba/helm",
+  "version": "0.1.0",
+  "description": "AI stack orchestrator with provider failover, circuit breaker, and prompt template management.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun --format esm",
+    "dev": "bun --watch ./src/index.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "prepublishOnly": "bun run build",
+    "check": "bun lint && bun format:check && bun typecheck && bun test"
+  },
+  "author": {
+    "name": "Benson Isaac",
+    "email": "bensxnisaac@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joinremba/helm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joinremba/helm/issues"
+  },
+  "homepage": "https://github.com/joinremba/helm#readme",
+  "keywords": [
+    "ai",
+    "llm",
+    "orchestrator",
+    "failover",
+    "circuit-breaker",
+    "prompt",
+    "template",
+    "groq",
+    "nvidia",
+    "openai"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "bun": ">=1.3.1"
+  },
+  "dependencies": {
+    "@joinremba/core": "^0.4.0",
+    "zod": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
+  }
+}
