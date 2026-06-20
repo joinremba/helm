@@ -114,20 +114,21 @@ Cloud sync failures are silently caught — your local prompt state is never aff
 
 ```ts
 const helm = createHelm(providers, {
-  client,                          // @joinremba/core Client for Nexus sync
-  timeout: 30_000,                 // Request timeout in ms
-  prompts: {                       // Initial prompt templates
+  client, // @joinremba/core Client for Nexus sync
+  timeout: 30_000, // Request timeout in ms
+  prompts: {
+    // Initial prompt templates
     greet: "Hello {name}!",
   },
   retry: {
-    maxRetries: 2,                 // Times to retry per model
+    maxRetries: 2, // Times to retry per model
     statusCodes: [429, 500, 502, 503, 504],
-    backoffMs: 1000,               // Base backoff (doubles each attempt)
+    backoffMs: 1000, // Base backoff (doubles each attempt)
   },
   circuitBreaker: {
-    threshold: 5,                  // Failures before tripping
-    cooldownMs: 30_000,            // How long to stay open
-    windowMs: 60_000,              // Rolling window
+    threshold: 5, // Failures before tripping
+    cooldownMs: 30_000, // How long to stay open
+    windowMs: 60_000, // Rolling window
   },
 });
 ```
@@ -136,19 +137,19 @@ const helm = createHelm(providers, {
 
 ### `createHelm(providers, options?)`
 
-| Param       | Type                                      | Description              |
-| ----------- | ----------------------------------------- | ------------------------ |
-| `providers` | `Record<string, ProviderConfig>`           | Provider name → config   |
-| `options`   | `HelmOptions`                             | Timeout, retry, CB, sync |
+| Param       | Type                             | Description              |
+| ----------- | -------------------------------- | ------------------------ |
+| `providers` | `Record<string, ProviderConfig>` | Provider name → config   |
+| `options`   | `HelmOptions`                    | Timeout, retry, CB, sync |
 
 ### `Helm`
 
-| Method     | Signature                                                               | Description                           |
-| ---------- | ----------------------------------------------------------------------- | ------------------------------------- |
-| `complete` | `(req: CompleteRequest) => Promise<CompleteResponse>`                   | Send completion with auto-failover    |
-| `prompt`   | `(name: string, template?: string) => void \| string \| undefined`      | Register or retrieve a template       |
-| `render`   | `(name: string, inputs: Record<string, string>) => string`              | Render a template without API call    |
-| `sync`     | `() => Promise<void>`                                                   | Pull prompts from Nexus (if client)   |
+| Method     | Signature                                                          | Description                         |
+| ---------- | ------------------------------------------------------------------ | ----------------------------------- |
+| `complete` | `(req: CompleteRequest) => Promise<CompleteResponse>`              | Send completion with auto-failover  |
+| `prompt`   | `(name: string, template?: string) => void \| string \| undefined` | Register or retrieve a template     |
+| `render`   | `(name: string, inputs: Record<string, string>) => string`         | Render a template without API call  |
+| `sync`     | `() => Promise<void>`                                              | Pull prompts from Nexus (if client) |
 
 ### `CompleteRequest`
 
