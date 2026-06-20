@@ -5,7 +5,7 @@
     "": {
       "name": "@joinremba/helm",
       "dependencies": {
-        "@joinremba/core": "^0.4.0",
+        "@joinremba/core": "^0.5.0",
         "zod": "^4.4.2",
       },
       "devDependencies": {
@@ -34,7 +34,7 @@
 
     "@humanwhocodes/object-schema": ["@humanwhocodes/object-schema@2.0.3", "", {}, "sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA=="],
 
-    "@joinremba/core": ["@joinremba/core@0.4.0", "", {}, "sha512-N5Cent7vjzYN6rPbbHbq9O3iwfEERzKYjbeBkS3K9GSDpVyCQCUR5m7R7pvzPNxeevhwMS7emYKfx4Je3p5Muw=="],
+    "@joinremba/core": ["@joinremba/core@0.5.0", "", {}, "sha512-HsCl5wnmpmZb1BPYnFneKGNvbDP4QHxUtxywacxS7UqYq8vsdKqwdq2FOPsJNRl5LKQ/mwJSvob9JGYm1z6NiA=="],
 
     "@nodelib/fs.scandir": ["@nodelib/fs.scandir@2.1.5", "", { "dependencies": { "@nodelib/fs.stat": "2.0.5", "run-parallel": "^1.1.9" } }, "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="],
 

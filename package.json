@@ -62,7 +62,7 @@
     "bun": ">=1.3.1"
   },
   "dependencies": {
-    "@joinremba/core": "^0.4.0",
+    "@joinremba/core": "^0.5.0",
     "zod": "^4.4.2"
   },
   "devDependencies": {
