@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { Client } from "@joinremba/core";
 
 export const MessageRoleSchema = z.enum(["system", "user", "assistant"]);
 export type MessageRole = z.infer<typeof MessageRoleSchema>;
@@ -33,7 +34,9 @@ export const HelmOptionsSchema = z.object({
   retry: RetryOptionsSchema.optional(),
   circuitBreaker: CircuitBreakerOptionsSchema.optional(),
 });
-export type HelmOptions = z.input<typeof HelmOptionsSchema>;
+export type HelmOptions = z.input<typeof HelmOptionsSchema> & {
+  client?: Client;
+};
 
 export interface ResolvedHelmOptions {
   timeout: number;

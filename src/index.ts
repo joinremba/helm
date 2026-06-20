@@ -12,6 +12,7 @@ import {
   CompleteRequestSchema,
   resolveHelmOptions,
 } from "./types";
+import type { Client } from "@joinremba/core";
 import { PromptRegistry } from "./prompts";
 import { ProviderClient } from "./providers";
 import { parseModel } from "./utils";
@@ -24,10 +25,12 @@ export class Helm {
   private providers: Map<string, ProviderClient>;
   private prompts: PromptRegistry;
   private opts: ResolvedHelmOptions;
+  private client?: Client;
 
   constructor(providers: Record<string, ProviderConfig>, options: HelmOptions = {}) {
     HelmOptionsSchema.parse(options);
     this.opts = resolveHelmOptions(options);
+    this.client = options.client;
 
     this.providers = new Map();
     for (const [name, config] of Object.entries(providers)) {
@@ -35,6 +38,22 @@ export class Helm {
       this.providers.set(name, new ProviderClient(name, validated, this.opts));
     }
     this.prompts = new PromptRegistry(options.prompts);
+
+    if (this.client) {
+      this.sync().catch(() => {});
+    }
+  }
+
+  async sync(): Promise<void> {
+    if (!this.client) return;
+    try {
+      const entries = await this.client.listPrompts();
+      for (const entry of entries) {
+        this.prompts.set(entry.name, entry.template);
+      }
+    } catch {
+      // Silently fail — local prompts take precedence
+    }
   }
 
   prompt(name: string, template: string): void;
@@ -44,6 +63,9 @@ export class Helm {
       return this.prompts.get(name);
     }
     this.prompts.set(name, template);
+    if (this.client) {
+      this.client.upsertPrompt({ name, template }).catch(() => {});
+    }
   }
 
   render(name: string, inputs: Record<string, string>): string {

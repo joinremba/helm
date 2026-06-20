@@ -1,6 +1,6 @@
 {
   "name": "@joinremba/helm",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "AI stack orchestrator with provider failover, circuit breaker, and prompt template management.",
   "type": "module",
   "main": "./src/index.ts",
