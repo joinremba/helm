@@ -16,7 +16,7 @@ import type { Client } from "@joinremba/core";
 import { PromptRegistry } from "./prompts";
 import { ProviderClient } from "./providers";
 import { parseModel } from "./utils";
-import { AllModelsFailedError, HelmError } from "./errors";
+import { AllModelsFailedError, HelmError, ProviderNotConfiguredError } from "./errors";
 
 export type * from "./types";
 export * from "./errors";
@@ -84,8 +84,7 @@ export class Helm {
       const { provider, modelId } = parseModel(fullModel);
       const client = this.providers.get(provider);
       if (client === undefined) {
-        errors.push({ model: fullModel, error: `Provider "${provider}" is not configured` });
-        continue;
+        throw new ProviderNotConfiguredError(provider);
       }
 
       try {
