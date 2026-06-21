@@ -1,0 +1,35 @@
+# @joinremba/helm
+
+AI stack orchestrator with provider failover, circuit breaker, and prompt template management.
+
+## Commands
+bun test — Run tests
+bun run typecheck — tsc --noEmit
+bun run lint — ESLint
+bun run check — lint + format:check + typecheck + test
+bun run build — Build to dist/
+
+## Key API
+createHelm(providers, options?) -> Helm
+helm.complete(request) -> CompleteResponse — Send prompt to AI model with failover chain
+helm.prompt(name, template) — Register a prompt template
+helm.render(name, inputs) — Render a template with {variableName} interpolation
+
+## Provider config
+providers: { providerName: { baseUrl, apiKey, models: [{ id, maxTokens }] } }
+Model string format: "provider/modelId" — e.g. "groq/llama-3.1-8b-instant"
+Failover: complete() tries primary model, then each fallback in order. Skips unconfigured providers. Throws AllModelsFailedError when all fail.
+
+## Circuit Breaker
+Tracks failures in a rolling window (default: 5 failures in 60s). When threshold hit, provider is skipped with CircuitBreakerOpenError. Resets after cooldown (default: 30s).
+
+## Retry
+Exponential backoff (1s, 2s, 4s...) on retryable status codes (429, 5xx). Max retries: 3.
+
+## Patterns
+Named exports only (no export default). createHelm is the factory.
+Prompt templates use {variableName} syntax. Registry is in-memory.
+OpenAI-compatible HTTP client (POST /chat/completions with messages array).
+
+## Errors
+HelmError (base), AllModelsFailedError, ProviderNotConfiguredError, CircuitBreakerOpenError, PromptNotFoundError, MissingPromptInputError, ProviderRequestError.
