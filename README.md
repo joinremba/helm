@@ -1,6 +1,6 @@
 # @joinremba/helm
 
-AI stack orchestrator for Bun — provider failover, circuit breaker, retry, and prompt template management.
+AI stack orchestrator for TypeScript — provider failover, circuit breaker, retry, and prompt template management.
 
 ```ts
 import { createHelm } from "@joinremba/helm";
